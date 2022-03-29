@@ -1,8 +1,8 @@
 {
-    "name": "terophp/tero-framework",
+    "name": "eletromidia/terophp",
     "type": "library",
     "license": "MIT",
-    "homepage": "http://github.com/gabrielricci/tero",
+    "homepage": "http://github.com/eletromidia/terophp",
     "authors": [
         {
             "name": "Gabriel Ricci",
