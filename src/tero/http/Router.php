@@ -182,6 +182,15 @@ class Router{
 		return $this->route(Request::PUT, $path, $handler);
 	}
 
+	/**
+     * @param $path
+     * @param $handler
+     * @return routes\Route
+     */
+	public function patch($path, $handler){
+		return $this->route(Request::PATCH, $path, $handler);
+	}
+
     /**
      * @param $method
      * @param $path
