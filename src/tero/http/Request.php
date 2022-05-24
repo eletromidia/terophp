@@ -7,6 +7,7 @@ class Request{
 	const POST		= 'post';
 	const PUT		= 'put';
 	const ANY		= 'any';
+	const PATCH		= 'patch';
 
 	private static $initialized	= false;
 	private static $headers		= array();
@@ -17,7 +18,8 @@ class Request{
 		"post"		=> array(), 
 		"put"		=> array(), 
 		"delete"	=> array(),
-		"any"		=> array()
+		"any"		=> array(),
+		"patch"		=> array()
 	);
 
 	private static function getallheaders() { 
@@ -55,6 +57,9 @@ class Request{
 			case 'put':
 				self::$method = self::PUT;
 			break;
+			case 'patch':
+				self::$method = self::PATCH;
+			break;
 		}
 
 		// store the path
@@ -67,14 +72,14 @@ class Request{
 		parse_str(file_get_contents("php://input"), self::$params["put"]);
 
 		// store the delete parameters
-		self::$params["delete"] = self::$params["put"];
+		self::$params["patch"] = self::$params["delete"] = self::$params["put"];
 
 		// store the get and post parameters
 		self::$params["get"]	= $_GET;
 		self::$params["post"]	= $_REQUEST;
 
 		// mix all the parameters
-		self::$params["any"] = self::$params["delete"] + self::$params["put"] + self::$params["get"] + self::$params["post"];
+		self::$params["any"] = self::$params["delete"] + self::$params["put"] + self::$params["get"] + self::$params["post"] + self::$params["patch"];
 
 		// set as initialised
 		self::$initialized = true;
@@ -115,7 +120,7 @@ class Request{
 	}
 
 	public static function isMethodValid($method){
-		if($method !== self::DELETE && $method !== self::GET && $method !== self::POST && $method !== self::PUT && $method !== self::ANY){
+		if($method !== self::DELETE && $method !== self::GET && $method !== self::POST && $method !== self::PUT && $method !== self::ANY && $method !== self::PATCH){
 			return false;
 		}
 
